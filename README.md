@@ -1,3 +1,6 @@
+To run project:
+`foreman start`
+
 # PKMS Development Checklist
 
 ## Setup Phase
