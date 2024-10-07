@@ -1,0 +1,54 @@
+# .gitignore at /pkms
+
+# ---- Rails-specific ignores (pkms-api) ----
+/pkms-api/.bundle
+
+# Ignore all environment files (except templates).
+/pkms-api/.env*
+!/pkms-api/.env*.erb
+
+# Ignore all logfiles and tempfiles.
+/pkms-api/log/*
+/pkms-api/tmp/*
+!/pkms-api/log/.keep
+!/pkms-api/tmp/.keep
+
+# Ignore pidfiles, but keep the directory.
+/pkms-api/tmp/pids/*
+!/pkms-api/tmp/pids/
+!/pkms-api/tmp/pids/.keep
+
+# Ignore storage (uploaded files in development and any SQLite databases).
+/pkms-api/storage/*
+!/pkms-api/storage/.keep
+/pkms-api/tmp/storage/*
+!/pkms-api/tmp/storage/
+!/pkms-api/tmp/storage/.keep
+
+# Ignore master key for decrypting credentials and more.
+/pkms-api/config/master.key
+
+# ---- React-specific ignores (pkms-frontend) ----
+/pkms-frontend/logs
+/pkms-frontend/*.log
+/pkms-frontend/npm-debug.log*
+/pkms-frontend/yarn-debug.log*
+/pkms-frontend/yarn-error.log*
+/pkms-frontend/pnpm-debug.log*
+/pkms-frontend/lerna-debug.log*
+
+/pkms-frontend/node_modules
+/pkms-frontend/dist
+/pkms-frontend/dist-ssr
+/pkms-frontend/*.local
+
+# Editor directories and files
+/pkms-frontend/.vscode/*
+!/pkms-frontend/.vscode/extensions.json
+/pkms-frontend/.idea
+/pkms-frontend/.DS_Store
+/pkms-frontend/*.suo
+/pkms-frontend/*.ntvs*
+/pkms-frontend/*.njsproj
+/pkms-frontend/*.sln
+/pkms-frontend/*.sw?
