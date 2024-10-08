@@ -3,6 +3,8 @@ To run project:
 
 # PKMS Development Checklist
 
+"PKMS" stands for Personal Knowledge Management System. The goal of the project is to create a tool that helps manage and organize knowledge, such as notes, references, and documents, allowing you to search, categorize, and potentially even analyze your personal information more effectively.
+
 ## Setup Phase
 - [ ] **Ensure Rails API and React Front-end Projects are Set Up:**
   - Verify that both projects are created and can run independently.
