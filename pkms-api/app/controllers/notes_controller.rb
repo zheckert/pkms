@@ -26,6 +26,7 @@ class NotesController < ApplicationController
   # create instnatiates and saves in a single step (i.e. Note.create(note_params))
   def create
     @note = Note.new(note_params)
+    #note that we're doing .save here to save the newly created note_paramsed Note
     if @note.save
       render json: @note, status: :created
     else
