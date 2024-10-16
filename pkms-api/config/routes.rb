@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :tags, only: [:index, :show, :create, :update, :destroy]
   resources :users, only: [:index, :show, :create, :update, :destroy]
 
+  # todo: I don't quite get the to syntax here. I need to understand how the routing works better!
   get 'notes/filter_by_tags', to: 'notes#filter_by_tags'
 
   resources :notes, only: [:index, :show, :create, :update, :destroy]
