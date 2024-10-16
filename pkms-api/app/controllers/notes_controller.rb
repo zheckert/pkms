@@ -51,6 +51,18 @@ class NotesController < ApplicationController
     head :no_content
   end
 
+  # This is a custom action used in the routes. It allows us to filter by tags!
+  # todo: go over syntax for this method so I understand it.
+  def filter_by_tags
+    if params[:tag_ids]
+      tag_ids = params[:tag_ids].split(",") # Example: ?tag_ids=1,2,3
+      @notes = Note.joins(:tags).where(tags: { id: tag_ids }).distinct
+      render json: @notes
+    else
+      render json: { error: 'No tag IDs provided' }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def note_params

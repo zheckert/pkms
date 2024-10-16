@@ -7,8 +7,11 @@ Rails.application.routes.draw do
 
   resources :categories, only: [:index, :show, :create, :update, :destroy]
   resources :tags, only: [:index, :show, :create, :update, :destroy]
-  resources :notes, only: [:index, :show, :create, :update, :destroy]
   resources :users, only: [:index, :show, :create, :update, :destroy]
+
+  get 'notes/filter_by_tags', to: 'notes#filter_by_tags'
+
+  resources :notes, only: [:index, :show, :create, :update, :destroy]
 
   # Defines the root path route ("/")
   # root "posts#index"
