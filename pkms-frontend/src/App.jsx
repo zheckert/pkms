@@ -1,5 +1,6 @@
 import './App.css'
 import Notes from './components/Notes'
+import Filter from './components/Filter'
 
 function App() {
 
@@ -7,6 +8,7 @@ function App() {
     <>
       <div>PKMS</div>
       <Notes />
+      <Filter />
     </>
   )
 }
