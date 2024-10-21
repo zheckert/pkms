@@ -1,21 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function Filter() {
-
-    const [tags, setTags] = useState([])
+function Filter({ onTagClick }) {
+    const [tags, setTags] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/notes/filter_by_tag')
-          .then(response => setTags(response.data))
-          .catch(error => console.error("There was an error fetching the tags!", error));
-          console.log(tags, "XXXXX HERE ARE MY TAGGIES")
-      }, []);
-    
+        axios.get('http://localhost:5000/tags')
+            .then(response => setTags(response.data))
+            .catch(error => console.error("There was an error fetching the tags!", error));
+    }, []);
 
-    return(
-        <div>Filtering tools</div>
-    )
+    return (
+        <div>
+            <h2>Filter by Tags</h2>
+            <ul>
+                {tags.map(tag => (
+                    <li key={tag.id}>
+                        <button onClick={() => onTagClick(tag.id)}>
+                            {tag.name}
+                        </button>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
 }
 
-export default Filter
+export default Filter;
