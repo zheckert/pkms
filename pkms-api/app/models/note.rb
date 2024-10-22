@@ -5,4 +5,7 @@ class Note < ApplicationRecord
   belongs_to :user
   has_many :categories
   has_and_belongs_to_many :tags
+
+  validates :title, presence: true
+  validates :content, presence: true
 end
