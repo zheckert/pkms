@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Notes from './components/Notes';
 import Filter from './components/Filter';
+import CreateNotes from './components/CreateNotes';
 import axios from 'axios';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
             <div>PKMS</div>
             <Filter onTagClick={handleTagClick} />
             <Notes notes={filteredNotes} /> 
+            <CreateNotes />
         </>
     );
 }
