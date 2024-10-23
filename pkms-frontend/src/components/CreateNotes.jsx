@@ -13,6 +13,8 @@ function CreateNotes() {
         axios.post(`http://localhost:5000/notes`, {
             title: title,
             content: content,
+            // todo: you are spoofing user_id here, please fix when you can!
+            user_id: 1,
             date: new Date().toISOString()
         })
         .then(response => {
