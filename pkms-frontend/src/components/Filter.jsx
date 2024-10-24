@@ -1,3 +1,5 @@
+//This component makes a request to the tag endpoint, which returns a list of all tags created by the user.
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 

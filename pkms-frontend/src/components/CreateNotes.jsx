@@ -1,3 +1,4 @@
+// This component captures user input and hands it back to be sent in to the API to be saved as a new note.
 
 import { useState } from "react";
 
@@ -9,9 +10,8 @@ function CreateNotes({createNote}) {
     return(
         <>
             <h3>Add  Note</h3>
-            {/* don't forget: the onSubmit event for a form goes on the form itself, not the submit button. */}
             <form onSubmit={(e) => {
-                e.preventDefault();  // Prevents the page from refreshing
+                e.preventDefault();
                 createNote(title, content);
             }}>
                 <label>
