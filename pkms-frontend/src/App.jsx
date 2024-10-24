@@ -37,7 +37,6 @@ function App() {
             content: content,
             // todo: you are spoofing user_id here, please fix when you can!
             user_id: 1,
-            date: new Date().toISOString()
         })
         .then(response => {
             //Once a new note is created, update state and force a refresh to show all previous notes and our new note!
