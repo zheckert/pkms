@@ -40,7 +40,7 @@ function App() {
         })
         .then(response => {
             //Once a new note is created, update state and force a refresh to show all previous notes and our new note!
-            setFilteredNotes(prevNotes => [...prevNotes, response.data]);
+            setAllNotes((prevNotes) => [...prevNotes, response.data])
         })
         .catch(error => {
             if (error.response) {
