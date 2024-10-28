@@ -3,18 +3,21 @@
 import React from 'react';
 import axios from 'axios';
 
-function Notes({ notes }) {
+function Notes({ notes, setAllNotes }) {
     //todo: delete this log later
     console.log("NOTES BABY", notes)
 
     const deleteNote = (note) => {
-        axios.delete(`http://www.localhost:5000/notes/${note.id}`)
+        //todo: remove
+        console.log(`Attempting to delete note at URL: http://localhost:5000/notes/${note.id}`);
+        axios.delete(`http://localhost:5000/notes/${note.id}`)
         .then(() => {
             setAllNotes((prevNotes) => prevNotes.filter(n => n.id !== note.id));
         })
         .catch(error => console.error(`There was an error deleting note with id ${note.id}: ${error}`));
     };
     
+    //todo: sort notes in reverse order plz
     return (
         
         <div>

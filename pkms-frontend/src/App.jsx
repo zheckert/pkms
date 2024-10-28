@@ -67,7 +67,7 @@ function App() {
                 <button onClick={clearFilter}>Clear Filter</button>
             }
             <Filter onTagClick={handleTagClick} />
-            <Notes notes={isFiltering ? filteredNotes : allNotes}/>
+            <Notes notes={isFiltering ? filteredNotes : allNotes} setAllNotes={setAllNotes}/>
            
         </>
     );
