@@ -5,8 +5,8 @@ Rails.application.configure do
 
   Rails.application.config.middleware.insert_before 0, Rack::Cors do
     allow do
-      origins '*'
-      resource '*', headers: :any, methods: [:get, :post, :options], debug: true
+      origins '*' #todo: make sure you change this before deployment, it's not safe
+      resource '*', headers: :any, methods: [:get, :post, :patch, :put, :delete, :options, :head], debug: true
     end
   end
 

@@ -8,8 +8,7 @@ function Notes({ notes, setAllNotes }) {
     console.log("NOTES BABY", notes)
 
     const deleteNote = (note) => {
-        //todo: remove
-        console.log(`Attempting to delete note at URL: http://localhost:5000/notes/${note.id}`);
+        
         axios.delete(`http://localhost:5000/notes/${note.id}`)
         .then(() => {
             setAllNotes((prevNotes) => prevNotes.filter(n => n.id !== note.id));
