@@ -3,6 +3,8 @@
 import axios from 'axios';
 import React from 'react';
 import Note from './Note';
+import '../index.css'
+
 
 function Notes({ notes, setAllNotes }) {
 
@@ -20,7 +22,7 @@ function Notes({ notes, setAllNotes }) {
     return (
         <div>
             <h1>Notes</h1>
-            <ul>
+            <ul className="notes-grid">
                 {sortedNotes.map(note => (
                     <Note key={note.id} note={note} deleteNote={deleteNote} />
                 ))}

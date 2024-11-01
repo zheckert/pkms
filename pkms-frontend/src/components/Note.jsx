@@ -1,5 +1,7 @@
 // This component defines the shape of a note to be displayed.
 
+
+//todo: make sure you ask before somethign is deleted!
 import React from 'react';
 
 function Note({ note, deleteNote }) {

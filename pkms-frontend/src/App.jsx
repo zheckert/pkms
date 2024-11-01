@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import './App.css';
 import CreateNotes from './components/CreateNotes';
 import Filter from './components/Filter';
 import Notes from './components/Notes';
