@@ -1,11 +1,10 @@
 // This component defines the shape of a note to be displayed.
 
-import React from 'react';
 import axios from 'axios';
+import React from 'react';
+import Note from './Note';
 
 function Notes({ notes, setAllNotes }) {
-    //todo: delete this log later
-    console.log("NOTES BABY", notes)
 
     const deleteNote = (note) => {
         
@@ -15,28 +14,16 @@ function Notes({ notes, setAllNotes }) {
         })
         .catch(error => console.error(`There was an error deleting note with id ${note.id}: ${error}`));
     };
-    
-    //todo: sort notes in reverse order plz
+
+    var sortedNotes = notes.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
     return (
-        
         <div>
             <h1>Notes</h1>
             <ul>
-                {notes.length > 0 ? (
-                    notes.map(note => (
-                        <li key={note.id}>
-                            <div>
-                                <h2>{note.title}</h2>
-                                {/* todo: clean up date data so it's not silly */}
-                                <p>Created on {note.created_at}</p>
-                                <p>{note.content}</p> 
-                            </div>
-                            <button onClick={() => deleteNote(note)}>Delete Note</button>
-                        </li>
-                    ))
-                ) : (
-                    <p>No notes available.</p> 
-                )}
+                {sortedNotes.map(note => (
+                    <Note key={note.id} note={note} deleteNote={deleteNote} />
+                ))}
             </ul>
         </div>
     );
