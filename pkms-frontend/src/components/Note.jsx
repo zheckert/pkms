@@ -1,8 +1,16 @@
+// This component defines the shape of a note to be displayed.
+
 import React from 'react';
 
 function Note({ note, deleteNote }) {
     const formatDate = (dateString) => {
-        const options = { month: 'long', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+        const options = { 
+            month: 'long', 
+            day: 'numeric', 
+            year: 'numeric', 
+            hour: '2-digit', 
+            minute: '2-digit' 
+        };
         return new Date(dateString).toLocaleString(undefined, options);
     };
 

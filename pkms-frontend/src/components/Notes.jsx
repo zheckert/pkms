@@ -1,4 +1,4 @@
-// This component defines the shape of a note to be displayed.
+// This component displays a collection of notes.
 
 import axios from 'axios';
 import React from 'react';
