@@ -5,7 +5,7 @@ Rails.application.configure do
 
   Rails.application.config.middleware.insert_before 0, Rack::Cors do
     allow do
-      origins '*' #todo: make sure you change this before deployment, it's not safe
+      origins 'http://localhost:5173/' #todo: add production origins when applicable
       resource '*', headers: :any, methods: [:get, :post, :patch, :put, :delete, :options, :head], debug: true
     end
   end
