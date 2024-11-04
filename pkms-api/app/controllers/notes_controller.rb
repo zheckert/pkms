@@ -8,9 +8,10 @@ class NotesController < ApplicationController
 
   # Index shows all my Notes
   # Uses all to retrieve all rows from the notes table
+  # We also include each note's tags.
   def index
-    @notes = Note.all
-    render json: @notes
+    @notes = Note.includes(:tags).all
+    render json: @notes, include: :tags
   end
 
   # The show method shows a single note

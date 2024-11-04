@@ -2,6 +2,7 @@
 
 //todo: make sure you ask before somethign is deleted!
 import React from "react";
+import Tags from "./Tags";
 
 function Note({ note, deleteNote }) {
   const formatDate = (dateString) => {
@@ -22,6 +23,7 @@ function Note({ note, deleteNote }) {
         <p>Created on {formatDate(note.created_at)}</p>
         <p>{note.content}</p>
       </div>
+      <Tags tags={note.tags} />
       <button onClick={() => deleteNote(note)}>Delete Note</button>
     </li>
   );
