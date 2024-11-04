@@ -5,3 +5,10 @@
   list-style: none;
   padding: 0;
 }
+
+.tags {
+  border: 1px black solid;
+  background-color: lightblue;
+  margin: 2px;
+  padding: 2px;
+}
