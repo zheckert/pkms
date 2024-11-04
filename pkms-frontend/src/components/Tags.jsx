@@ -1,7 +1,7 @@
 import React from "react";
 
 function Tags({ tags }) {
-  const allTags = tags.map((tag) => <span id={tag.id}>{tag.name}</span>);
+  const allTags = tags.map((tag) => <span key={tag.id}>{tag.name}</span>);
   return <div>{allTags}</div>;
 }
 
