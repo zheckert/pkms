@@ -16,15 +16,19 @@ function Note({ note, deleteNote }) {
     return new Date(dateString).toLocaleString(undefined, options);
   };
 
+  //todo: add confirmation to delete. render different component version w/ different text?
+
   return (
-    <li>
+    <li className="note">
       <div>
         <h2>{note.title}</h2>
         <p>Created on {formatDate(note.created_at)}</p>
         <p>{note.content}</p>
       </div>
       <Tags tags={note.tags} />
-      <button onClick={() => deleteNote(note)}>Delete Note</button>
+      <button className="delete-button" onClick={() => deleteNote(note)}>
+        Delete Note
+      </button>
     </li>
   );
 }

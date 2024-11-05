@@ -6,9 +6,20 @@
   padding: 0;
 }
 
+.note {
+  background-color: lightgray;
+  border-radius: 2px;
+  padding: 10px;
+}
+
 .tags {
   border: 1px black solid;
+  border-radius: 2px;
   background-color: lightblue;
   margin: 2px;
   padding: 2px;
+}
+
+.delete-button {
+  margin: 10px;
 }
