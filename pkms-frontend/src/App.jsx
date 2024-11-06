@@ -3,11 +3,13 @@ import React, { useEffect, useState } from "react";
 import CreateNotes from "./components/CreateNotes";
 import Filter from "./components/Filter";
 import Notes from "./components/Notes";
+import ErrorMessage from "./components/ErrorMessage";
 
 function App() {
   const [filteredNotes, setFilteredNotes] = useState([]);
   const [allNotes, setAllNotes] = useState([]);
   const [isFiltering, setIsFiltering] = useState(false);
+  const [error, setError] = useState("");
 
   // This function is called from the Filter component and updates state and displays notes based on what tag is clicked.
   const handleTagClick = (tagId) => {
@@ -17,9 +19,12 @@ function App() {
         setFilteredNotes(response.data);
         setIsFiltering(true);
       })
-      .catch((error) =>
-        console.error("There was an error fetching the filtered notes!", error)
-      );
+      .catch((error) => {
+        console.log(`${error.message}`);
+        handleError(
+          "There was an error fetching the filtered notes. Please try again."
+        );
+      });
   };
 
   // This function runs on page load and gets all notes.
@@ -30,13 +35,16 @@ function App() {
         setAllNotes(response.data);
         setIsFiltering(false);
       })
-      .catch((error) => console.error("Error fetching notes", error));
+      .catch((error) => {
+        console.log(`${error.message}`);
+        handleError("Failed to load notes. Please try again.");
+      });
   };
 
   // This function is called from the CreateNotes component and handles sending in user input to the API to be saved as a new note.
   const createNote = (title, content) => {
     axios
-      .post(`http://localhost:5000/notes`, {
+      .post(`http://localhost:5000/noes`, {
         title: title,
         content: content,
         // todo: you are spoofing user_id here, please fix when you can!
@@ -47,9 +55,8 @@ function App() {
         setAllNotes((prevNotes) => [...prevNotes, response.data]);
       })
       .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-        }
+        console.log(`${error.message}`);
+        handleError("Failed to create note. Please try again.");
       });
   };
 
@@ -63,9 +70,14 @@ function App() {
     setIsFiltering(false);
   };
 
+  const handleError = (message) => {
+    setError(message);
+  };
+
   return (
     <>
-      <div>PKMS</div>
+      <div>Personal Knowledge Management System</div>
+      {error && <ErrorMessage error={error} />}
       <CreateNotes createNote={createNote} />
       {isFiltering && <button onClick={clearFilter}>Clear Filter</button>}
       <Filter onTagClick={handleTagClick} />
