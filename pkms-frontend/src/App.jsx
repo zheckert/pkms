@@ -44,7 +44,7 @@ function App() {
   // This function is called from the CreateNotes component and handles sending in user input to the API to be saved as a new note.
   const createNote = (title, content) => {
     axios
-      .post(`http://localhost:5000/noes`, {
+      .post(`http://localhost:5000/notes`, {
         title: title,
         content: content,
         // todo: you are spoofing user_id here, please fix when you can!
