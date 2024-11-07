@@ -29,7 +29,7 @@ class NotesController < ApplicationController
     @note = Note.new(note_params)
     #note that we're doing .save here to save the newly created note_paramsed Note
     if @note.save
-      render json: @note, status: :created
+      render json: @note.as_json(include: :tags), status: :created
     else
       render json: @note.errors, status: :unprocessable_entity
     end
