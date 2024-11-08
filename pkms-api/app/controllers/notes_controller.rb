@@ -11,14 +11,14 @@ class NotesController < ApplicationController
   # We also include each note's tags.
   def index
     @notes = Note.includes(:tags).all
-    render json: @notes, include: :tags
+    render json: @notes, include: { tags: {methods: :instance_id}}
   end
 
   # The show method shows a single note
   # Uses find(id) to grab the specific note with corresponding ID
   def show
     @note = Note.find(params[:id])
-    render json: @note
+    render json: @note, include: { tags: {methods: :instance_id}}
   end
 
   # creates a new note. Note that we use the note_params to make sure we're safely handling input parameters. Those are defined
