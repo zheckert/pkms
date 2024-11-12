@@ -1,4 +1,5 @@
 # .gitignore at /pkms
+plan.md
 
 # ---- Rails-specific ignores (pkms-api) ----
 /pkms-api/.bundle
