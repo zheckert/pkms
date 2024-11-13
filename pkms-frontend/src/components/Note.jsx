@@ -3,6 +3,7 @@
 //todo: make sure you ask before somethign is deleted!
 import React from "react";
 import Tags from "./Tags";
+import DeleteButton from "./DeleteButton";
 
 function Note({ note, deleteNote }) {
   const formatDate = (dateString) => {
@@ -26,9 +27,7 @@ function Note({ note, deleteNote }) {
         <p>{note.content}</p>
       </div>
       <Tags tags={note.tags} />
-      <button className="delete-button" onClick={() => deleteNote(note)}>
-        Delete Note
-      </button>
+      <DeleteButton deleteNote={deleteNote} note={note} />
     </li>
   );
 }
