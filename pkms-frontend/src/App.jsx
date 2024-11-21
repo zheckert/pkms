@@ -48,7 +48,7 @@ function App() {
         title: title,
         content: content,
         // todo: you are spoofing user_id here, please fix when you can!
-        user_id: 1,
+        user_id: 1, //TODO NOW: Properly integrate session-based user authentication for creating notes and cleaning up the frontend/backend flow
       })
       .then((response) => {
         //Once a new note is created, update state and force a refresh to show all previous notes and our new note!

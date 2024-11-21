@@ -57,6 +57,7 @@ class NotesController < ApplicationController
   def filter_by_tags
     if params[:tag_ids]
       tag_ids = params[:tag_ids].split(",") # Example: ?tag_ids=1,2,3
+      #todo: figure out what the difference is between joins and includes?
       @notes = Note.joins(:tags).where(tags: { id: tag_ids }).distinct
       render json: @notes
     else
