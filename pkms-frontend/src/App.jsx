@@ -41,23 +41,26 @@ function App() {
       });
   };
 
-  // This function is called from the CreateNotes component and handles sending in user input to the API to be saved as a new note.
-  const createNote = (title, content) => {
-    axios
-      .post(`http://localhost:5000/notes`, {
-        title: title,
-        content: content,
-        // todo: you are spoofing user_id here, please fix when you can!
+  const createNote = async (title, content) => {
+    try {
+      const response = await axios.post("http://localhost:5000/notes", {
+        title,
+        content,
         user_id: 1, //TODO NOW: Properly integrate session-based user authentication for creating notes and cleaning up the frontend/backend flow
-      })
-      .then((response) => {
-        //Once a new note is created, update state and force a refresh to show all previous notes and our new note!
-        setAllNotes((prevNotes) => [...prevNotes, response.data]);
-      })
-      .catch((error) => {
-        console.log(`${error.message}`);
-        handleError("Failed to create note. Please try again.");
       });
+
+      if (response.data) {
+        setAllNotes((prevNotes) => [...prevNotes, response.data]);
+      } else {
+        console.error("No data in response");
+      }
+
+      // We let CreateNotes know that the note was successfully created so it can reset the state in the form fields.
+      return true;
+    } catch (error) {
+      console.error("Error during note creation", error);
+      return false;
+    }
   };
 
   // Use effect with an empty dependency array runs a single time immediately on page load.

@@ -6,15 +6,21 @@ function CreateNotes({ createNote }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const success = await createNote(title, content);
+
+    if (success) {
+      setTitle("");
+      setContent("");
+    }
+  };
+
   return (
     <>
       <h3>Add Note</h3>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          createNote(title, content);
-        }}
-      >
+      <form onSubmit={handleSubmit}>
         <label>
           Note Title:
           <input
