@@ -10,15 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_19_140445) do
-  create_table "categories", force: :cascade do |t|
-    t.string "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "user_id", null: false
-    t.index ["user_id"], name: "index_categories_on_user_id"
-  end
-
+ActiveRecord::Schema[7.1].define(version: 2024_11_21_145509) do
   create_table "notes", force: :cascade do |t|
     t.string "title"
     t.text "content"
@@ -52,7 +44,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_19_140445) do
     t.string "password_digest"
   end
 
-  add_foreign_key "categories", "users"
   add_foreign_key "notes", "users"
   add_foreign_key "tags", "users"
 end
