@@ -1,7 +1,6 @@
 class User < ApplicationRecord
-  # Reminder: dependent: :destroy means if this user goes, their associated notes/categories/tags go, too!
+  # Reminder: dependent: :destroy means if this user goes, their associated notes/tags go, too!
   has_many :notes, dependent: :destroy
-  has_many :categories, dependent: :destroy
   has_many :tags, dependent: :destroy
   has_secure_password
 
