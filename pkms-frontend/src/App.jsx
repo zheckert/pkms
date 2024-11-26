@@ -4,6 +4,7 @@ import CreateNotes from "./components/CreateNotes";
 import Filter from "./components/Filter";
 import Notes from "./components/Notes";
 import ErrorMessage from "./components/ErrorMessage";
+import LoginForm from "./components/LoginForm";
 
 function App() {
   const [filteredNotes, setFilteredNotes] = useState([]);
@@ -79,7 +80,7 @@ function App() {
 
   return (
     <>
-      <div>Personal Knowledge Management System</div>
+      <div>Personal Knowledge Management System</div> <LoginForm />
       {error && <ErrorMessage error={error} />}
       <CreateNotes createNote={createNote} />
       {isFiltering && <button onClick={clearFilter}>Clear Filter</button>}
