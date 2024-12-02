@@ -11,6 +11,7 @@ function App() {
   const [allNotes, setAllNotes] = useState([]);
   const [isFiltering, setIsFiltering] = useState(false);
   const [error, setError] = useState("");
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
   // This function is called from the Filter component and updates state and displays notes based on what tag is clicked.
   const handleTagClick = (tagId) => {
@@ -80,7 +81,8 @@ function App() {
 
   return (
     <>
-      <div>Personal Knowledge Management System</div> <LoginForm />
+      <div>Personal Knowledge Management System</div>{" "}
+      <LoginForm setLoggedInUser={setLoggedInUser} />
       {error && <ErrorMessage error={error} />}
       <CreateNotes createNote={createNote} />
       {isFiltering && <button onClick={clearFilter}>Clear Filter</button>}

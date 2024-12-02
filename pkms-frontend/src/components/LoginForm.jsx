@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const LoginForm = () => {
+const LoginForm = ({ setLoggedInUser }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -9,11 +9,14 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
+      console.log("todo: remove login credz baby", email, password);
       const response = await axios.post("http://localhost:5000/login", {
         email,
         password,
       });
+      console.log("todo: REMOVE THIS! SEVER RESPONSE", response.data);
       setLoggedInUser(response.data);
+      console.log("todo: remove login USER", email, password);
       //todo: provide Message to user: login successful?
     } catch (error) {
       console.error("Login failed!", error.response.data);
