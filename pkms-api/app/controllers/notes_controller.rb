@@ -6,12 +6,13 @@ class NotesController < ApplicationController
   # I specified what routes I expect to have at this endpoint there and then add them here and flesh out the expected behavior.
   # These methods take advantage of active record methods- We call Note and then a method.
 
-  # Index shows all my Notes
+  # Index shows all notes for the currently logged-in user.
   # Uses all to retrieve all rows from the notes table
   # We also include each note's tags.
   def index
-    @notes = Note.includes(:tags).all
-    render json: @notes, include: { tags: {methods: :instance_id}}
+    # Fetch only notes for the logged-in user
+    @notes = current_user.notes.includes(:tags)
+    render json: @notes, include: { tags: { methods: :instance_id } }
   end
 
   # The show method shows a single note
@@ -26,10 +27,9 @@ class NotesController < ApplicationController
   # new isntantiates a new object without saving it to the database (follow-up with save to save it)
   # create instnatiates and saves in a single step (i.e. Note.create(note_params))
   def create
-    note = current_user.notes.build(note_params)
+    # Create a new note for the logged-in user
+    @note = current_user.notes.build(note_params)
 
-    @note = Note.new(note_params)
-    #note that we're doing .save here to save the newly created note_paramsed Note
     if @note.save
       render json: @note.as_json(include: :tags), status: :created
     else
@@ -69,8 +69,14 @@ class NotesController < ApplicationController
 
   private
 
+  def require_login
+    unless session[:user_id]
+      render json: { error: "Unauthorized" }, status: :unauthorized
+    end
+  end
+
   def note_params
-    params.require(:note).permit(:title, :content, :user_id)
+    params.require(:note).permit(:title, :content)
   end
 
 end

@@ -31,6 +31,8 @@ function App() {
 
   // This function runs on page load and gets all notes.
   const fetchNotes = () => {
+    if (!loggedInUser) return;
+
     axios
       .get("http://localhost:5000/notes")
       .then((response) => {
@@ -44,11 +46,15 @@ function App() {
   };
 
   const createNote = async (title, content) => {
+    if (!loggedInUser) {
+      handleError("You must be logged in to create a note.");
+      return false;
+    }
+
     try {
       const response = await axios.post("http://localhost:5000/notes", {
         title,
         content,
-        user_id: 1, //TODO NOW: Properly integrate session-based user authentication for creating notes and cleaning up the frontend/backend flow
       });
 
       if (response.data) {
@@ -66,9 +72,12 @@ function App() {
   };
 
   // Use effect with an empty dependency array runs a single time immediately on page load.
+  // Note: We've since updated the dependency array. Now, if a new user logs in, fetch their notes.
   useEffect(() => {
-    fetchNotes();
-  }, []);
+    if (loggedInUser) {
+      fetchNotes();
+    }
+  }, [loggedInUser]);
 
   // Called from the clear filter button which is shown when tag filtering is active, this set the filtering state to false, thereby disabling the filtered view.
   const clearFilter = () => {
@@ -86,7 +95,7 @@ function App() {
       {error && <ErrorMessage error={error} />}
       <CreateNotes createNote={createNote} />
       {isFiltering && <button onClick={clearFilter}>Clear Filter</button>}
-      <Filter onTagClick={handleTagClick} />
+      {/* <Filter onTagClick={handleTagClick} /> todo: uncomment and fix this*/}
       <Notes
         notes={isFiltering ? filteredNotes : allNotes}
         setAllNotes={setAllNotes}

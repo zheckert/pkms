@@ -1,27 +1,32 @@
 class TagsController < ApplicationController
 
   def index
-    @tags = Tag.all
+    # Fetch tags specific to the logged-in user
+    @tags = current_user.tags
     render json: @tags
   end
 
   def show
-    @tag = Tag.find(params[:id])
+    # Ensure the tag belongs to the current user
+    @tag = current_user.tags.find(params[:id])
     render json: @tag
   end
 
   def create
-    @tag = Tag.new(tag_params)
+    # Create a new tag for the current user
+    @tag = current_user.tags.build(tag_params)
 
     if @tag.save
-      render json: @tag
+      render json: @tag, status: :created
     else
       render json: @tag.errors, status: :unprocessable_entity
     end
   end
 
   def update
-    @tag = Tag.find(params[:id])
+    # Only update a tag that belongs to the current user
+    @tag = current_user.tags.find(params[:id])
+
     if @tag.update(tag_params)
       render json: @tag
     else
@@ -30,7 +35,8 @@ class TagsController < ApplicationController
   end
 
   def destroy
-    @tag = Tag.find(params[:id])
+    # Only destroy a tag that belongs to the current user
+    @tag = current_user.tags.find(params[:id])
     @tag.destroy
     head :no_content
   end
@@ -38,7 +44,7 @@ class TagsController < ApplicationController
   private
 
   def tag_params
-    params.require(:tag).permit(:name, :user_id)
+    # No user_id needed anymore
+    params.require(:tag).permit(:name)
   end
-
 end
