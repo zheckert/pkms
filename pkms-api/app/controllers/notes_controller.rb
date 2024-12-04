@@ -26,7 +26,7 @@ class NotesController < ApplicationController
   # new isntantiates a new object without saving it to the database (follow-up with save to save it)
   # create instnatiates and saves in a single step (i.e. Note.create(note_params))
   def create
-    note = current_user.notes.build(note_params)
+    note = authenticated_user.notes.build(note_params)
 
     @note = Note.new(note_params)
     #note that we're doing .save here to save the newly created note_paramsed Note
@@ -70,7 +70,7 @@ class NotesController < ApplicationController
   private
 
   def note_params
-    params.require(:note).permit(:title, :content, :user_id)
+    params.require(:note).permit(:title, :content)
   end
 
 end
