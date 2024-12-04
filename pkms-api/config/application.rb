@@ -31,5 +31,6 @@ module PkmsApi
 
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore
+    config.middleware.use ActionController::RequestForgeryProtection
   end
 end
