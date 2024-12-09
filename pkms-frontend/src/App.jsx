@@ -44,7 +44,6 @@ function App() {
 
   const createNote = async (title, content) => {
     try {
-      console.log("are we here? todo: remove");
       const response = await axios.post("http://localhost:5000/notes", {
         title,
         content,
