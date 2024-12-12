@@ -47,7 +47,7 @@ function App() {
       const response = await axios.post("http://localhost:5000/notes", {
         title,
         content,
-        user_id: 1, //TODO NOW: Properly integrate session-based user authentication for creating notes and cleaning up the frontend/backend flow
+        user_id: 1, //TODO NOW: Properly utilize token-based authentication here instead of hardcoded value
       });
 
       if (response.data) {
