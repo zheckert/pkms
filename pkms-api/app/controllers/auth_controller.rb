@@ -24,7 +24,7 @@ class AuthController < ApplicationController
     payload = { user_id: user_id, exp: 24.hours.from_now.to_i }
 
     # Encode the payload using a secret key
-    JWT.encode(payload, Rails.application.secrets.secret_key_base)
+    JWT.encode(payload, Rails.application.credentials.jwt[:secret_key])
     end
       
 end
