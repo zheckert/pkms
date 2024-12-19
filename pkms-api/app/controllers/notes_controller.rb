@@ -1,4 +1,10 @@
 class NotesController < ApplicationController
+  # This is a before_action that restricts access to the NotesController to authenticated users.
+  # Don't forget- before_action is used to call a method before a controller action is used.
+  before_action :authenticate_user!
+
+  # For this one, we want to make sure a user sees only their notes.
+  before_action :set_note, only: [:show, :update, :destroy]
 
   #making some notes to help me remember how things work.
 
@@ -68,8 +74,16 @@ class NotesController < ApplicationController
 
   private
 
+  # strong params!
   def note_params
     params.require(:note).permit(:title, :content, :user_id )
+  end
+
+  # This makes sure a user can only access their own notes!
+  # If there's no current user, we display an error.
+  def set_note
+    @note = @current_user.notes.find_by(id: params[:id])
+    render json: { error: 'Not Found' }, status: :not_found unless @note
   end
 
 end

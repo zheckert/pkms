@@ -11,6 +11,40 @@ function App() {
   const [allNotes, setAllNotes] = useState([]);
   const [isFiltering, setIsFiltering] = useState(false);
   const [error, setError] = useState("");
+  const [authToken, setAuthToken] = useState(localStorage.getItem("token"));
+  const [userName, setUserName] = useState("");
+
+  // Use effect with an empty dependency array runs a single time immediately on page load.
+  useEffect(() => {
+    if (authToken) {
+    }
+    axios
+      .get("", {
+        headers: { Authorization: `Bearer ${authToken}` },
+      })
+      .then((response) => {
+        setUserName(response.data.name);
+        axios.defaults.headers.common["Authorization"] = `Bearer ${authToken}`;
+      })
+      .catch(() => {
+        handleLogout();
+      });
+    // fetchNotes(); todo: Delete if I don't need this anymore
+  }, [authToken]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setAuthToken(null);
+    setUserName("");
+    delete axios.defaults.headers.common["Authorization"];
+  };
+
+  const handleLoginSuccess = (token, name) => {
+    setAuthToken(token);
+    setUserName(name);
+    localStorage.setItem("token", token);
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  };
 
   // This function is called from the Filter component and updates state and displays notes based on what tag is clicked.
   const handleTagClick = (tagId) => {
@@ -64,11 +98,6 @@ function App() {
     }
   };
 
-  // Use effect with an empty dependency array runs a single time immediately on page load.
-  useEffect(() => {
-    fetchNotes();
-  }, []);
-
   // Called from the clear filter button which is shown when tag filtering is active, this set the filtering state to false, thereby disabling the filtered view.
   const clearFilter = () => {
     setIsFiltering(false);
@@ -80,11 +109,21 @@ function App() {
 
   return (
     <>
-      <div>Personal Knowledge Management System</div> <LoginForm />
+      <div>Personal Knowledge Management System</div>
+      {authToken ? (
+        <>
+          {" "}
+          <div>Hello, {userName}!</div>{" "}
+          <button onClick={handleLogout}>Logout</button>
+        </>
+      ) : (
+        <LoginForm onLoginSuccess={handleLoginSuccess} />
+      )}
+
       {error && <ErrorMessage error={error} />}
       <CreateNotes createNote={createNote} />
       {isFiltering && <button onClick={clearFilter}>Clear Filter</button>}
-      <Filter onTagClick={handleTagClick} />
+      {/* <Filter onTagClick={handleTagClick} /> todo: Add tags back in later  */}
       <Notes
         notes={isFiltering ? filteredNotes : allNotes}
         setAllNotes={setAllNotes}

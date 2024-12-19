@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const LoginForm = () => {
+const LoginForm = ({ onLoginSuccess }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -9,12 +9,17 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:5000/login", {
+      // todo: use correct endpoint (auth/login)
+      const response = await axios.post("http://localhost:5000/auth/login", {
         email,
         password,
       });
-      setLoggedInUser(response.data);
-      //todo: provide Message to user: login successful?
+      const { token, user } = response.data.token;
+
+      onLoginSuccess(token, user);
+
+      //todo: provide Message to user: login successful
+      //todo: provide feedback to the user when their token is invalid or expired.
     } catch (error) {
       console.error("Login failed!", error.response.data);
       alert("Invalid credentials; please try again");
