@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   # todo: research for proper routing order in routes.rb
   post 'auth/login', to: 'auth#login'
 
+  namespace :auth do
+    post 'verify', to: 'auth#verify'
+  end
+
   resources :tags, only: [:index, :show, :create, :update, :destroy]
   resources :users, only: [:index, :show, :create, :update, :destroy]
 

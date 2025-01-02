@@ -4,47 +4,55 @@ import axios from "axios";
 const LoginForm = ({ onLoginSuccess }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
-      // todo: use correct endpoint (auth/login)
       const response = await axios.post("http://localhost:5000/auth/login", {
         email,
         password,
       });
-      const { token, user } = response.data.token;
+      const { token, user } = response.data;
 
-      onLoginSuccess(token, user);
-
-      //todo: provide Message to user: login successful
-      //todo: provide feedback to the user when their token is invalid or expired.
+      onLoginSuccess(token, user.name);
+      console.log(response.data, "EHRE IS THE SDATA");
+      setMessage("Login successful!");
     } catch (error) {
-      console.error("Login failed!", error.response.data);
-      alert("Invalid credentials; please try again");
+      console.error("Login failed!", error.response?.data || error.message);
+      setMessage("Invalid credentials; please try again");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleLogin}>
-      <label htmlFor="email">Email</label>
-      <input
-        type="email"
-        id="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-
-      <label htmlFor="password">Password</label>
-      <input
-        type="password"
-        id="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button type="submit">Submit</button>
-    </form>
+    <div>
+      <form onSubmit={handleLogin}>
+        <label htmlFor="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <label htmlFor="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        {/* todo: split button into its own component? */}
+        <button type="submit" disabled={loading}>
+          {loading ? "Loading..." : "Submit"}
+        </button>
+      </form>
+      {message && <p>{message}</p>}
+    </div>
   );
 };
 

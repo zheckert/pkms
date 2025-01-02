@@ -39,9 +39,9 @@ function App() {
     delete axios.defaults.headers.common["Authorization"];
   };
 
-  const handleLoginSuccess = (token, name) => {
+  const handleLoginSuccess = (token, user) => {
     setAuthToken(token);
-    setUserName(name);
+    setUserName(user.name);
     localStorage.setItem("token", token);
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   };
