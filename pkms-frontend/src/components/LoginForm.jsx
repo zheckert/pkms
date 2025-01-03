@@ -18,7 +18,7 @@ const LoginForm = ({ onLoginSuccess }) => {
       });
       const { token, user } = response.data;
 
-      onLoginSuccess(token, user.name);
+      onLoginSuccess(response.data.token, response.data.user);
       console.log(response.data, "EHRE IS THE SDATA");
       setMessage("Login successful!");
     } catch (error) {

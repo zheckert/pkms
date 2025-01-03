@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # todo: research for proper routing order in routes.rb
+  get 'auth/profile', to: 'auth#profile'
+
   post 'auth/login', to: 'auth#login'
 
   namespace :auth do

@@ -1,5 +1,18 @@
 class AuthController < ApplicationController
   # Verify the token and return the associated user
+
+  def profile
+    token = request.headers['Authorization']&.split(' ')&.last
+    user = decode_token(token)
+  
+    if user
+      render json: { id: user.id, name: user.name, email: user.email }, status: :ok
+    else
+      render json: { error: 'Unauthorized' }, status: :unauthorized
+    end
+  end
+  
+
   def verify
     user = decode_token(params[:token])
     if user

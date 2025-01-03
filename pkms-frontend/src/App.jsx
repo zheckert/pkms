@@ -19,10 +19,12 @@ function App() {
     if (authToken) {
     }
     axios
-      .get("", {
+      .get("http://localhost:5000/auth/profile", {
         headers: { Authorization: `Bearer ${authToken}` },
       })
       .then((response) => {
+        console.log("full api response: ", response);
+        console.log("DATA NAME BABY", response.data.name);
         setUserName(response.data.name);
         axios.defaults.headers.common["Authorization"] = `Bearer ${authToken}`;
       })
@@ -40,27 +42,30 @@ function App() {
   };
 
   const handleLoginSuccess = (token, user) => {
+    console.log("DATA RECEIVED", user);
     setAuthToken(token);
+    console.log("user.name?", user.name);
     setUserName(user.name);
     localStorage.setItem("token", token);
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   };
 
   // This function is called from the Filter component and updates state and displays notes based on what tag is clicked.
-  const handleTagClick = (tagId) => {
-    axios
-      .get(`http://localhost:5000/notes/filter_by_tags?tag_ids=${tagId}`)
-      .then((response) => {
-        setFilteredNotes(response.data);
-        setIsFiltering(true);
-      })
-      .catch((error) => {
-        console.log(`${error.message}`);
-        handleError(
-          "There was an error fetching the filtered notes. Please try again."
-        );
-      });
-  };
+  // todo: uncomment when we're using this piece again
+  // const handleTagClick = (tagId) => {
+  //   axios
+  //     .get(`http://localhost:5000/notes/filter_by_tags?tag_ids=${tagId}`)
+  //     .then((response) => {
+  //       setFilteredNotes(response.data);
+  //       setIsFiltering(true);
+  //     })
+  //     .catch((error) => {
+  //       console.log(`${error.message}`);
+  //       handleError(
+  //         "There was an error fetching the filtered notes. Please try again."
+  //       );
+  //     });
+  // };
 
   // This function runs on page load and gets all notes.
   const fetchNotes = () => {
@@ -112,8 +117,7 @@ function App() {
       <div>Personal Knowledge Management System</div>
       {authToken ? (
         <>
-          {" "}
-          <div>Hello, {userName}!</div>{" "}
+          <div>Hello, {userName}!</div>
           <button onClick={handleLogout}>Logout</button>
         </>
       ) : (
