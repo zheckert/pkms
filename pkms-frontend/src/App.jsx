@@ -31,7 +31,7 @@ function App() {
       .catch(() => {
         handleLogout();
       });
-    // fetchNotes(); todo: Delete if I don't need this anymore
+    fetchNotes();
   }, [authToken]);
 
   const handleLogout = () => {

@@ -12,7 +12,7 @@ class AuthController < ApplicationController
     end
   end
   
-
+ #Do I need explicit tokening outside of the auth workflow? investigate if this can be consolidated into the profile method.
   def verify
     user = decode_token(params[:token])
     if user
