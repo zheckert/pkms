@@ -19,7 +19,6 @@ const LoginForm = ({ onLoginSuccess }) => {
       const { token, user } = response.data;
 
       onLoginSuccess(response.data.token, response.data.user);
-      console.log(response.data, "EHRE IS THE SDATA");
       setMessage("Login successful!");
     } catch (error) {
       console.error("Login failed!", error.response?.data || error.message);

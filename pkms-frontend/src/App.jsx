@@ -23,8 +23,6 @@ function App() {
         headers: { Authorization: `Bearer ${authToken}` },
       })
       .then((response) => {
-        console.log("full api response: ", response);
-        console.log("DATA NAME BABY", response.data.name);
         setUserName(response.data.name);
         axios.defaults.headers.common["Authorization"] = `Bearer ${authToken}`;
       })
@@ -42,9 +40,7 @@ function App() {
   };
 
   const handleLoginSuccess = (token, user) => {
-    console.log("DATA RECEIVED", user);
     setAuthToken(token);
-    console.log("user.name?", user.name);
     setUserName(user.name);
     localStorage.setItem("token", token);
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
