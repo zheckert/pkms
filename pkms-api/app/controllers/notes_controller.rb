@@ -16,7 +16,7 @@ class NotesController < ApplicationController
   # Uses all to retrieve all rows from the notes table
   # We also include each note's tags.
   def index
-    @notes = Note.includes(:tags).all
+    @notes = current_user.notes.includes(:tags)
     render json: @notes, include: { tags: {methods: :instance_id}}
   end
 
