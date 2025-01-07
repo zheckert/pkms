@@ -16,8 +16,8 @@ function App() {
 
   // Use effect with an empty dependency array runs a single time immediately on page load.
   useEffect(() => {
-    if (authToken) {
-    }
+    // Short circuit if there's no authToken present.
+    if (!authToken) return;
     axios
       .get("http://localhost:5000/auth/profile", {
         headers: { Authorization: `Bearer ${authToken}` },
