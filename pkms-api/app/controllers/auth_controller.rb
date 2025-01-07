@@ -15,6 +15,7 @@ class AuthController < ApplicationController
  #Do I need explicit tokening outside of the auth workflow? investigate if this can be consolidated into the profile method.
   def verify
     user = decode_token(params[:token])
+    
     if user
       render json: { user: user }, status: :ok
     else
