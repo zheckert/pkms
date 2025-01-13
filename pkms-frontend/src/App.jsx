@@ -84,7 +84,7 @@ function App() {
     try {
       const response = await axios.post(
         "http://localhost:5000/notes",
-        { title, content },
+        { note: { title, content } },
         { headers: { Authorization: `Bearer ${authToken}` } }
       );
 
