@@ -22,9 +22,10 @@ function Note({ note, deleteNote }) {
   return (
     <li className="note">
       <div>
+        {/* todo: Fix note content breaking out */}
         <h2>{note.title}</h2>
-        <p>Created on {formatDate(note.created_at)}</p>
         <p>{note.content}</p>
+        <p>Created {formatDate(note.created_at)}</p>
       </div>
       <Tags tags={note.tags} />
       <DeleteButton deleteNote={deleteNote} note={note} />
