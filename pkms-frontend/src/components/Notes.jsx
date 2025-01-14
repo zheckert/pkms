@@ -19,15 +19,11 @@ function Notes({ notes, setAllNotes }) {
       );
   };
 
-  var sortedNotes = notes.sort(
-    (a, b) => new Date(b.created_at) - new Date(a.created_at)
-  );
-
   return (
     <div>
       <h1>Notes</h1>
       <ul className="notes-grid">
-        {sortedNotes.map((note) => (
+        {notes.map((note) => (
           <Note key={note.id} note={note} deleteNote={deleteNote} />
         ))}
       </ul>

@@ -67,15 +67,16 @@ function App() {
   const fetchNotes = () => {
     axios
       .get("http://localhost:5000/notes")
+
       .then((response) => {
-        // const sortedNotes = response.data.sort(
-        //   (a, b) => new Date(b.created_at) - new Date(a.created_at)
-        // ); todo: this sort should definitely be preferred (I think), but leaving it out until everything else with auth is working.
-        setAllNotes(response.data);
+        const sortedNotes = response.data.sort(
+          (a, b) => new Date(b.created_at) - new Date(a.created_at)
+        );
+        setAllNotes(sortedNotes);
         setIsFiltering(false);
       })
       .catch((error) => {
-        console.log(`${error.message}`);
+        console.error(`${error.message}`);
         handleError("Failed to load notes. Please try again.");
       });
   };
