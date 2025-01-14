@@ -22,7 +22,6 @@ function Note({ note, deleteNote }) {
   return (
     <li className="note">
       <div>
-        {/* todo: Fix note content breaking out */}
         <h2>{note.title}</h2>
         <p>{note.content}</p>
         <p>Created {formatDate(note.created_at)}</p>
