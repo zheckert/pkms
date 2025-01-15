@@ -15,4 +15,10 @@ class ApplicationController < ActionController::API
   def current_user
     @current_user
   end
+
+  # Generate JWT token
+  def generate_token(user_id)
+    payload = { user_id: user_id, exp: 24.hours.from_now.to_i }
+    JWT.encode(payload, Rails.application.credentials.jwt[:secret_key])
+  end
 end

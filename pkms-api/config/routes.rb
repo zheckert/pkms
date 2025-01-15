@@ -7,15 +7,17 @@ Rails.application.routes.draw do
 
   # todo: research for proper routing order in routes.rb
   get 'auth/profile', to: 'auth#profile'
-
   post 'auth/login', to: 'auth#login'
 
   namespace :auth do
     post 'verify', to: 'auth#verify'
   end
 
+  # I only need to use one crud request from the users controller. Well, there is only one anyway.
+  resources :users, only: [:create]
+
+  # For tags. todo: do I need all of these routes?
   resources :tags, only: [:index, :show, :create, :update, :destroy]
-  resources :users, only: [:index, :show, :create, :update, :destroy]
 
   # todo: I don't quite get the to syntax here. I need to understand how the routing works better!
   # I think what's happening is we're hitting the filter_by_tags method living in the notes controller, right? What about the first part?
