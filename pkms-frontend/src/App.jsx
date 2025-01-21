@@ -4,7 +4,7 @@ import CreateNotes from "./components/CreateNotes";
 import Filter from "./components/Filter";
 import Notes from "./components/Notes";
 import ErrorMessage from "./components/ErrorMessage";
-import LoginForm from "./components/LoginForm";
+import AuthForm from "./components/AuthForm";
 
 function App() {
   const [filteredNotes, setFilteredNotes] = useState([]);
@@ -130,7 +130,7 @@ function App() {
           />
         </>
       ) : (
-        <LoginForm onLoginSuccess={handleLoginSuccess} />
+        <AuthForm onLoginSuccess={handleLoginSuccess} />
       )}
     </div>
   );
