@@ -90,7 +90,7 @@ function App() {
       );
 
       if (response.data) {
-        setAllNotes((prevNotes) => [...prevNotes, response.data]);
+        setAllNotes((prevNotes) => [response.data, ...prevNotes]);
       } else {
         console.error("No data in response");
       }
