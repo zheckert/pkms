@@ -37,12 +37,6 @@ class AuthController < ApplicationController
 
   private
 
-  # Generate JWT token
-  def generate_token(user_id)
-    payload = { user_id: user_id, exp: 24.hours.from_now.to_i }
-    JWT.encode(payload, Rails.application.credentials.jwt[:secret_key])
-  end
-
   # Decode JWT token and fetch the associated user
   def decode_token(token)
     decoded = JWT.decode(token, Rails.application.credentials.jwt[:secret_key], true, { algorithm: 'HS256' })
