@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::API
   # Method for authenticating the user. Call in controllers to restrict access.
   def authenticate_user!
+    #todo: take a look at this method. install pry. To do this you may have to reconfigure the foreman script and then deal with cors drama
     header = request.headers['Authorization']
     token = header.split(' ').last if header
     begin
