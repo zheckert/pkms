@@ -8,7 +8,7 @@ function Filter({ onTagClick }) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/tags")
+      .get("http://localhost:3000/tags")
       .then((response) => setTags(response.data))
       .catch((error) =>
         console.error("There was an error fetching the tags!", error)

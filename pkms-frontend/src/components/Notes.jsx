@@ -8,7 +8,7 @@ import "../index.css";
 function Notes({ notes, setAllNotes }) {
   const deleteNote = (note) => {
     axios
-      .delete(`http://localhost:5000/notes/${note.id}`)
+      .delete(`http://localhost:3000/notes/${note.id}`)
       .then(() => {
         setAllNotes((prevNotes) => prevNotes.filter((n) => n.id !== note.id));
       })

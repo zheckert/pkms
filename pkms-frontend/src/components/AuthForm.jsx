@@ -15,7 +15,7 @@ const AuthForm = ({ onLoginSuccess, createUser }) => {
 
     try {
       if (mode === "login") {
-        const response = await axios.post("http://localhost:5000/auth/login", {
+        const response = await axios.post("http://localhost:3000/auth/login", {
           email,
           password,
         });
@@ -23,7 +23,7 @@ const AuthForm = ({ onLoginSuccess, createUser }) => {
         onLoginSuccess(response.data.token, response.data.user);
         setMessage("Login successful!");
       } else if (mode === "create") {
-        const response = await axios.post("http://localhost:5000/users", {
+        const response = await axios.post("http://localhost:3000/users", {
           user: { email, password, name },
         });
         onLoginSuccess(response.data.token, response.data.user);

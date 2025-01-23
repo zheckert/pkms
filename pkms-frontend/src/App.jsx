@@ -19,7 +19,7 @@ function App() {
     // Short circuit if there's no authToken present.
     if (!authToken) return;
     axios
-      .get("http://localhost:5000/auth/profile", {
+      .get("http://localhost:3000/auth/profile", {
         headers: { Authorization: `Bearer ${authToken}` },
       })
       .then((response) => {
@@ -50,7 +50,7 @@ function App() {
   // todo: uncomment when we're using this piece again
   // const handleTagClick = (tagId) => {
   //   axios
-  //     .get(`http://localhost:5000/notes/filter_by_tags?tag_ids=${tagId}`)
+  //     .get(`http://localhost:3000/notes/filter_by_tags?tag_ids=${tagId}`)
   //     .then((response) => {
   //       setFilteredNotes(response.data);
   //       setIsFiltering(true);
@@ -66,7 +66,7 @@ function App() {
   // This function runs on page load and gets all notes.
   const fetchNotes = () => {
     axios
-      .get("http://localhost:5000/notes")
+      .get("http://localhost:3000/notes")
 
       .then((response) => {
         const sortedNotes = response.data.sort(
@@ -84,7 +84,7 @@ function App() {
   const createNote = async (title, content) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/notes",
+        "http://localhost:3000/notes",
         { note: { title, content } },
         { headers: { Authorization: `Bearer ${authToken}` } }
       );
