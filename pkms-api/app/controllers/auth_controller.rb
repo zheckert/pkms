@@ -11,17 +11,6 @@ class AuthController < ApplicationController
       render json: { error: 'Unauthorized' }, status: :unauthorized
     end
   end
-  
- #Do I need explicit tokening outside of the auth workflow? investigate if this can be consolidated into the profile method.
-  def verify
-    user = decode_token(params[:token])
-    
-    if user
-      render json: { user: user }, status: :ok
-    else
-      render json: { error: 'Invalid or expired token' }, status: :unauthorized
-    end
-  end
 
   # Login user and issue a token
   def login
