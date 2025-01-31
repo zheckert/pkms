@@ -1,10 +1,10 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import CreateNotes from "./components/CreateNotes";
 import Filter from "./components/Filter";
 import Notes from "./components/Notes";
 import ErrorMessage from "./components/ErrorMessage";
 import AuthForm from "./components/AuthForm";
+import api, { setAuthToken } from "./api";
 
 function App() {
   const [filteredNotes, setFilteredNotes] = useState([]);
@@ -18,13 +18,11 @@ function App() {
   useEffect(() => {
     // Short circuit if there's no authToken present.
     if (!authToken) return;
-    axios
-      .get("http://localhost:3000/auth/profile", {
-        headers: { Authorization: `Bearer ${authToken}` },
-      })
+    setAuthToken(authToken);
+    api
+      .get("/auth/profile")
       .then((response) => {
         setUserName(response.data.name);
-        axios.defaults.headers.common["Authorization"] = `Bearer ${authToken}`;
         fetchNotes();
       })
       .catch(() => {
@@ -37,7 +35,7 @@ function App() {
     setAuthToken(null);
     setUserName("");
     setAllNotes([]);
-    delete axios.defaults.headers.common["Authorization"];
+    api.defaults.headers.common = {};
   };
 
   const handleLoginSuccess = (token, user) => {
@@ -65,9 +63,8 @@ function App() {
 
   // This function runs on page load and gets all notes.
   const fetchNotes = () => {
-    axios
-      .get("http://localhost:3000/notes")
-
+    api
+      .get("/notes")
       .then((response) => {
         const sortedNotes = response.data.sort(
           (a, b) => new Date(b.created_at) - new Date(a.created_at)
@@ -83,11 +80,7 @@ function App() {
 
   const createNote = async (title, content) => {
     try {
-      const response = await axios.post(
-        "http://localhost:3000/notes",
-        { note: { title, content } },
-        { headers: { Authorization: `Bearer ${authToken}` } }
-      );
+      const response = await api.post("/notes", { note: { title, content } });
 
       if (response.data) {
         setAllNotes((prevNotes) => [response.data, ...prevNotes]);

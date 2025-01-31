@@ -1,14 +1,14 @@
 // This component displays a collection of notes.
 
-import axios from "axios";
 import React from "react";
-import Note from "./Note";
+import api from "../api";
 import "../index.css";
+import Note from "./Note";
 
 function Notes({ notes, setAllNotes }) {
   const deleteNote = (note) => {
-    axios
-      .delete(`http://localhost:3000/notes/${note.id}`)
+    api
+      .delete(`/notes/${note.id}`)
       .then(() => {
         setAllNotes((prevNotes) => prevNotes.filter((n) => n.id !== note.id));
       })

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api, { setAuthToken } from "../api";
 
 const AuthForm = ({ onLoginSuccess, createUser }) => {
   const [email, setEmail] = useState("");
@@ -15,15 +15,16 @@ const AuthForm = ({ onLoginSuccess, createUser }) => {
 
     try {
       if (mode === "login") {
-        const response = await axios.post("http://localhost:3000/auth/login", {
+        const response = await api.post("/auth/login", {
           email,
           password,
         });
         const { token, user } = response.data;
-        onLoginSuccess(response.data.token, response.data.user);
+        setAuthToken(token);
+        onLoginSuccess(token, user);
         setMessage("Login successful!");
       } else if (mode === "create") {
-        const response = await axios.post("http://localhost:3000/users", {
+        const response = await api.post("/users", {
           user: { email, password, name },
         });
         onLoginSuccess(response.data.token, response.data.user);

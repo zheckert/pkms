@@ -1,14 +1,14 @@
 //This component makes a request to the tag endpoint, which returns a list of all tags created by the user.
 
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../api";
 
 function Filter({ onTagClick }) {
   const [tags, setTags] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/tags")
+    api
+      .get("/tags")
       .then((response) => setTags(response.data))
       .catch((error) =>
         console.error("There was an error fetching the tags!", error)
