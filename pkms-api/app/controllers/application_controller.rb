@@ -2,13 +2,11 @@ class ApplicationController < ActionController::API
   # Method for authenticating the user. Call in controllers to restrict access.
   def authenticate_user!
     header = request.headers['Authorization']
-    Rails.logger.info "Auth Header: #{header}"
     token = header.split(' ').last if header
     begin
       decoded = JWT.decode(token, Rails.application.credentials.jwt[:secret_key], true, { algorithm: 'HS256' })
       @current_user = User.find(decoded[0]['user_id'])
     rescue JWT::DecodeError => e
-      Rails.logger.error "JWT Decode Error: #{e.message}"
       render json: { errors: 'Unauthorized' }, status: :unauthorized
     end
   end

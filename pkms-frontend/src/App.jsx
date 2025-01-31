@@ -18,17 +18,26 @@ function App() {
   useEffect(() => {
     // Short circuit if there's no authToken present.
     if (!authToken) return;
-    setAuthToken(authToken);
     api
       .get("/auth/profile")
       .then((response) => {
         setUserName(response.data.name);
         fetchNotes();
       })
-      .catch(() => {
-        handleLogout();
-      });
+      .catch(handleLogout);
   }, [authToken]);
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        handleLogout();
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -36,6 +45,7 @@ function App() {
     setUserName("");
     setAllNotes([]);
     api.defaults.headers.common = {};
+    window.location.reload();
   };
 
   const handleLoginSuccess = (token, user) => {
