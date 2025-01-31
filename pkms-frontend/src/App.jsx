@@ -27,18 +27,6 @@ function App() {
       .catch(handleLogout);
   }, [authToken]);
 
-  useEffect(() => {
-    const handleStorageChange = () => {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        handleLogout();
-      }
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-    return () => window.removeEventListener("storage", handleStorageChange);
-  }, []);
-
   const handleLogout = () => {
     localStorage.removeItem("token");
     setAuthToken(null);

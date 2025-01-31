@@ -13,11 +13,24 @@ export const useAuth = () => {
       .catch(handleLogout);
   }, [authToken]);
 
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        handleLogout();
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     setAuthToken(null);
     setUserName("");
     api.defaults.headers.common = {};
+    window.location.reload();
   };
 
   const handleLogin = (token, user) => {
