@@ -4,6 +4,7 @@
 import React from "react";
 import Tags from "./Tags";
 import DeleteButton from "./DeleteButton";
+import EditButton from "./EditButton";
 
 function Note({ note, deleteNote }) {
   const formatDate = (dateString) => {
@@ -27,6 +28,7 @@ function Note({ note, deleteNote }) {
         <p>Created {formatDate(note.created_at)}</p>
       </div>
       <Tags tags={note.tags} />
+      <EditButton />
       <DeleteButton deleteNote={deleteNote} note={note} />
     </li>
   );
