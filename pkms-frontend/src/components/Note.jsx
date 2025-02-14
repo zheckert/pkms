@@ -5,8 +5,11 @@ import React from "react";
 import Tags from "./Tags";
 import DeleteButton from "./DeleteButton";
 import EditButton from "./EditButton";
+import { useState } from "react";
 
 function Note({ note, deleteNote }) {
+  const [editingNote, setEditingNote] = useState(false);
+
   const formatDate = (dateString) => {
     const options = {
       month: "long",
@@ -24,11 +27,17 @@ function Note({ note, deleteNote }) {
     <li className="note">
       <div>
         <h2>{note.title}</h2>
-        <p>{note.content}</p>
+        {editingNote ? (
+          <textarea onChange={(e) => setContent(e.target.value)}>
+            {note.content}
+          </textarea>
+        ) : (
+          <p>{note.content}</p>
+        )}
         <p>Created {formatDate(note.created_at)}</p>
       </div>
       <Tags tags={note.tags} />
-      <EditButton />
+      <EditButton setEditingNote={setEditingNote} />
       <DeleteButton deleteNote={deleteNote} note={note} />
     </li>
   );
