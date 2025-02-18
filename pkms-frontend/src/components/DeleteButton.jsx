@@ -11,7 +11,7 @@ function DeleteButton({ deleteNote, note }) {
       <button onClick={() => setDeletingNote(false)}>No</button>{" "}
     </>
   ) : (
-    <button onClick={() => setDeletingNote(true)}>Delete Note</button>
+    <button onClick={() => setDeletingNote(true)}>Delete</button>
   );
 }
 

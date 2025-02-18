@@ -3,9 +3,8 @@
 import { useState } from "react";
 import api from "../api";
 
-function CreateNotes({ createNote }) {
+function CreateNotes({ createNote, content, setContent }) {
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
