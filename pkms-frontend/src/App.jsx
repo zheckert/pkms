@@ -13,6 +13,7 @@ function App() {
   const [error, setError] = useState("");
   const [authToken, setAuthToken] = useState(localStorage.getItem("token"));
   const [userName, setUserName] = useState("");
+  const [content, setContent] = useState("");
 
   // Use effect with an empty dependency array runs a single time immediately on page load.
   useEffect(() => {
@@ -112,7 +113,11 @@ function App() {
           <div>Hello, {userName}!</div>
           <button onClick={handleLogout}>Logout</button>
           {error && <ErrorMessage error={error} />}
-          <CreateNotes createNote={createNote} />
+          <CreateNotes
+            createNote={createNote}
+            content={content}
+            setContent={setContent}
+          />
           {isFiltering && <button onClick={clearFilter}>Clear Filter</button>}
           {/* todo: <Filter onTagClick={handleTagClick} /> */}
           <Notes
