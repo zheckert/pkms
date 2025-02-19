@@ -1,27 +1,14 @@
 // This component defines the shape of a note to be displayed.
 
-//todo: make sure you ask before somethign is deleted!
 import React, { useState } from "react";
 import DeleteButton from "./DeleteButton";
 import EditButton from "./EditButton";
+import CreationDate from "./NoteCreationDate";
 import Tags from "./Tags";
 
 function Note({ note, deleteNote, updateNote, setContent }) {
   const [editingNote, setEditingNote] = useState(false);
   const [editedContent, setEditedContent] = useState(note.content);
-
-  const formatDate = (dateString) => {
-    const options = {
-      month: "long",
-      day: "numeric",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    };
-    return new Date(dateString).toLocaleString(undefined, options);
-  };
-
-  //todo: add confirmation to delete. render different component version w/ different text?
 
   return (
     <li className="note">
@@ -35,9 +22,9 @@ function Note({ note, deleteNote, updateNote, setContent }) {
         ) : (
           <p>{note.content}</p>
         )}
-        <p>Created {formatDate(note.created_at)}</p>
       </div>
       <Tags tags={note.tags} />
+      {/* todo: I despise how I'm passing a function down to the EditButton component. Figure out how to not do that */}
       <EditButton
         updateNote={() => {
           updateNote(note, editedContent);
@@ -47,6 +34,7 @@ function Note({ note, deleteNote, updateNote, setContent }) {
         editingNote={editingNote}
       />
       <DeleteButton deleteNote={deleteNote} note={note} />
+      <CreationDate note={note} />
     </li>
   );
 }
