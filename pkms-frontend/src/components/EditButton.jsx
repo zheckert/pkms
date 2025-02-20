@@ -1,11 +1,11 @@
-function EditButton({ updateNote, setEditingNote, editingNote }) {
-  return editingNote ? (
+function EditButton({ onEdit, onSave, onCancel, isEditing }) {
+  return isEditing ? (
     <>
-      <button onClick={updateNote}>Save Changes</button>
-      <button onClick={() => setEditingNote(false)}>Cancel Changes</button>
+      <button onClick={onSave}>Save Changes</button>
+      <button onClick={onCancel}>Cancel Changes</button>
     </>
   ) : (
-    <button onClick={() => setEditingNote(true)}>Edit</button>
+    <button onClick={onEdit}>Edit</button>
   );
 }
 

@@ -1,6 +1,7 @@
 import React from "react";
 
 function NoteCreationDate({ note }) {
+  console.log("todo: remove IA M EHERE");
   const formatDate = (dateString) => {
     const options = {
       month: "long",
@@ -12,7 +13,7 @@ function NoteCreationDate({ note }) {
     return new Date(dateString).toLocaleString(undefined, options);
   };
 
-  <p>Created {formatDate(note.created_at)}</p>;
+  return <p>Created {formatDate(note.created_at)}</p>;
 }
 
 export default NoteCreationDate;
