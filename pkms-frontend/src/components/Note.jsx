@@ -3,12 +3,17 @@
 import React, { useState } from "react";
 import DeleteButton from "./DeleteButton";
 import EditButton from "./EditButton";
-import CreationDate from "./NoteCreationDate";
+import NoteCreationDate from "./NoteCreationDate";
 import Tags from "./Tags";
 
-function Note({ note, deleteNote, updateNote, setContent }) {
+function Note({ note, deleteNote, updateNote }) {
   const [editingNote, setEditingNote] = useState(false);
   const [editedContent, setEditedContent] = useState(note.content);
+
+  const handleSave = () => {
+    updateNote(note, editedContent);
+    setEditingNote(false);
+  };
 
   return (
     <li className="note">
@@ -24,17 +29,14 @@ function Note({ note, deleteNote, updateNote, setContent }) {
         )}
       </div>
       <Tags tags={note.tags} />
-      {/* todo: I despise how I'm passing a function down to the EditButton component. Figure out how to not do that */}
       <EditButton
-        updateNote={() => {
-          updateNote(note, editedContent);
-          setEditingNote(false);
-        }}
-        setEditingNote={setEditingNote}
-        editingNote={editingNote}
+        onEdit={() => setEditingNote(true)}
+        onSave={handleSave}
+        onCancel={() => setEditingNote(false)}
+        isEditing={editingNote}
       />
       <DeleteButton deleteNote={deleteNote} note={note} />
-      <CreationDate note={note} />
+      <NoteCreationDate note={note} />
     </li>
   );
 }
