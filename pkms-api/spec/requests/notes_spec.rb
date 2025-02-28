@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "Notes API", type: :request do
   let(:user) { User.create!(email: "test@example.com", password: "password", name: "bobby barfuss test") }
-  
+  let(:token) { ApplicationController.new.generate_token(user.id) }
+  let(:headers) { { "Authorization" => "Bearer #{token}" } }
+
   describe "POST /notes" do
     it "creates a new note and returns it" do
       note_params = {
@@ -13,7 +15,7 @@ RSpec.describe "Notes API", type: :request do
         }
       }
 
-      post "/notes", params: note_params
+      post "/notes", params: note_params, headers: headers
 
       expect(response).to have_http_status(:created)
       json_response = JSON.parse(response.body)
