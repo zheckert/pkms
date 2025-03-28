@@ -1,7 +1,6 @@
 import React from "react";
 
 function NoteCreationDate({ note }) {
-  console.log("todo: remove IA M EHERE");
   const formatDate = (dateString) => {
     const options = {
       month: "long",
