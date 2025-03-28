@@ -44,7 +44,7 @@ function App() {
   };
 
   const handleTagClick = (tagId) => {
-    axios
+    api
       .get(`http://localhost:3000/notes/filter_by_tags?tag_ids=${tagId}`)
       .then((response) => {
         setFilteredNotes(response.data);

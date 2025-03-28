@@ -1,7 +1,6 @@
 // This component captures user input and hands it back to be sent in to the API to be saved as a new note.
 
 import { useState } from "react";
-import api from "../api";
 
 function CreateNotes({ createNote, content, setContent }) {
   const [title, setTitle] = useState("");
