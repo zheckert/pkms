@@ -43,22 +43,20 @@ function App() {
     setUserName(user.name);
   };
 
-  // This function is called from the Filter component and updates state and displays notes based on what tag is clicked.
-  // todo: uncomment when we're using this piece again
-  // const handleTagClick = (tagId) => {
-  //   axios
-  //     .get(`http://localhost:3000/notes/filter_by_tags?tag_ids=${tagId}`)
-  //     .then((response) => {
-  //       setFilteredNotes(response.data);
-  //       setIsFiltering(true);
-  //     })
-  //     .catch((error) => {
-  //       console.log(`${error.message}`);
-  //       handleError(
-  //         "There was an error fetching the filtered notes. Please try again."
-  //       );
-  //     });
-  // };
+  const handleTagClick = (tagId) => {
+    axios
+      .get(`http://localhost:3000/notes/filter_by_tags?tag_ids=${tagId}`)
+      .then((response) => {
+        setFilteredNotes(response.data);
+        setIsFiltering(true);
+      })
+      .catch((error) => {
+        console.log(`${error.message}`);
+        handleError(
+          "There was an error fetching the filtered notes. Please try again."
+        );
+      });
+  };
 
   // This function runs on page load and gets all notes.
   const fetchNotes = () => {
@@ -119,7 +117,7 @@ function App() {
             setContent={setContent}
           />
           {isFiltering && <button onClick={clearFilter}>Clear Filter</button>}
-          {/* todo: <Filter onTagClick={handleTagClick} /> */}
+          <Filter onTagClick={handleTagClick} />
           <Notes
             notes={isFiltering ? filteredNotes : allNotes}
             setAllNotes={setAllNotes}
